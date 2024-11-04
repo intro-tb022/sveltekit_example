@@ -21,6 +21,7 @@
 		"prettier": "^3.3.2",
 		"prettier-plugin-svelte": "^3.2.6",
 		"svelte": "^5.0.0",
+		"svelte-typeahead": "^4.4.1",
 		"vite": "^5.0.3"
 	}
 }
