@@ -3,7 +3,7 @@
 
 	let { data } = $props();
 
-	let alumnoPre = $state({})
+	let estado = $state({alumno: null});
 </script>
 
 <h1>Materia {data.materia.nombre}</h1>
@@ -13,10 +13,11 @@
   	placeholder={`Buscar alumno por nombre`}
   	data={data.alumnos}
   	extract={(alumno) => `${alumno.nombre} ${alumno.apellido}`}
+	on:select={({ detail }) => estado.alumno = detail.original}
 	inputAfterSelect='clear'
 />
 
-{#if alumnoPre}
+{#if estado.alumno}
 	<form method="POST" action="?/inscribir">
 		<input type="hidden" name="padron" value={alumnoPre.padron} />
 		<input type="hidden" name="id" value={data.materia.id} />
