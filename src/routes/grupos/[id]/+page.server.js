@@ -1,7 +1,9 @@
 import { error } from '@sveltejs/kit';
 
+import { PUBLIC_API_URL } from '$env/static/public';
+
 export async function load({ params }) {
-   let url = new URL(`http://localhost:8000/grupos/${params.id}`)
+   let url = new URL(`${PUBLIC_API_URL}/${params.id}`)
    const response = await fetch(url);
    if (!response.ok) {
        error(response.status, "No se pudo cargar el grupo")
@@ -18,7 +20,7 @@ export const actions = {
     desinscribir: async ({ request }) => {
         const data = await request.formData();
  
-        let url = new URL(`http://localhost:8000/grupos/${data.get('id')}/integrantes/${data.get('padron')}`)
+        let url = new URL(`${PUBLIC_API_URL}/grupos/${data.get('id')}/integrantes/${data.get('padron')}`)
  
         const response = await fetch(url, {
             method: 'DELETE',
@@ -31,7 +33,7 @@ export const actions = {
     poner_nota: async ({ request }) => {
         const data = await request.formData();
  
-        let url = new URL(`http://localhost:8000/integrantes/${data.get('id')}/${data.get('padron')}/poner_nota`)
+        let url = new URL(`${PUBLIC_API_URL}/integrantes/${data.get('id')}/${data.get('padron')}/poner_nota`)
         let params = { nota: data.get('nota') }
         url.search = new URLSearchParams(params).toString();
  
@@ -46,7 +48,7 @@ export const actions = {
     inscribir: async ({ request }) => {
         const data = await request.formData();
  
-        let url = new URL(`http://localhost:8000/grupos/${data.get('id')}/integrantes`)
+        let url = new URL(`${PUBLIC_API_URL}/grupos/${data.get('id')}/integrantes`)
  
         const response = await fetch(url, {
             method: 'POST',

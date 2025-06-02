@@ -1,4 +1,6 @@
 <script>
+    import { PUBLIC_API_URL } from '$env/static/public';
+
     import Typeahead from '$lib/components/Typeahead.svelte';
 
     import '../table-styles.css';
@@ -55,7 +57,7 @@
             <fieldset>
                 <legend>Alumno {index + 1}</legend>
                 <Typeahead
-                    endpoint="http://localhost:8000/alumnos/"
+                    endpoint={`${PUBLIC_API_URL}/alumnos/`}
                     placeholder="Elegir alumno..."
                     on:select={(event) => { grupo.integrantes[index] = event.detail.result}}
                 />

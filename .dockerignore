@@ -1,0 +1,17 @@
+# SvelteKit .dockerignore
+node_modules/
+npm-debug.log*
+.DS_Store
+.vscode/
+.idea/
+*~
+.git
+.gitignore
+README.md
+Dockerfile
+.dockerignore
+docker-compose.yml
+.svelte-kit/
+build/
+dist/
+.output/
