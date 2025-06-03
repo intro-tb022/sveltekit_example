@@ -1,11 +1,16 @@
 <script>
     import '../table-styles.css';
+    import Pagination from '$lib/components/Pagination.svelte';
 
     let { data } = $props();
 </script>
 
 <h1>Ésta es la página de alumnos</h1>
-
+<Pagination 
+    currentPage={data.currentPage}
+    pageSize={data.pageSize}
+    hasMore={data.hasMore}
+/>
 <table>
     <thead>
         <tr>

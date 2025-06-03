@@ -1,4 +1,3 @@
-# SvelteKit .dockerignore
 node_modules/
 npm-debug.log*
 .DS_Store
