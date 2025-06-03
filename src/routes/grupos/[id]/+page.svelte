@@ -50,7 +50,7 @@
     <form method="POST" action="?/inscribir">
         <input type="hidden" name="id" value={data.grupo.id} />
         <Typeahead
-            endpoint="http://localhost:8000/alumnos/"
+            endpoint={`${PUBLIC_API_URL}/alumnos/`}
             placeholder="Elegir alumno..."
             on:select={handleSelect}
         />
