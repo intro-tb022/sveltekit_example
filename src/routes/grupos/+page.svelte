@@ -1,20 +1,20 @@
 <script>
-    import { PUBLIC_API_URL } from '$env/static/public';
+    import { PUBLIC_API_URL } from "$env/static/public";
 
-    import Typeahead from '$lib/components/Typeahead.svelte';
+    import Typeahead from "$lib/components/Typeahead.svelte";
 
-    import '../table-styles.css';
-    import '../button-styles.css';
+    import "../button-styles.css";
+    import "../table-styles.css";
 
     let { data } = $props();
 
     let grupo = $state({
-        nombre: '',
+        nombre: "",
         integrantes: [],
-    })
+    });
 
     function agregarIntegrante() {
-        grupo.integrantes.push({ nombre: '', apellido: '', edad: '' });
+        grupo.integrantes.push({ nombre: "", apellido: "", edad: "" });
     }
 
     function quitarIntegrante(index) {
@@ -39,19 +39,20 @@
     </tbody>
 </table>
 
-<h2> Nuevo Grupo </h2>
+<h2>Nuevo Grupo</h2>
 
 <form class="grupo-form" method="POST" action="?/create">
     <label>
         Nombre:
-        <input
-            name="nombre"
-            autocomplete="off"
-        />
+        <input name="nombre" autocomplete="off" />
     </label>
 
     <div>
-        <input type="hidden" name="integrantes" value={JSON.stringify(grupo.integrantes)} />
+        <input
+            type="hidden"
+            name="integrantes"
+            value={JSON.stringify(grupo.integrantes)}
+        />
         <h3>Integrantes:</h3>
         {#each grupo.integrantes as integrante, index}
             <fieldset>
@@ -59,7 +60,9 @@
                 <Typeahead
                     endpoint={`${PUBLIC_API_URL}/alumnos/`}
                     placeholder="Elegir alumno..."
-                    on:select={(event) => { grupo.integrantes[index] = event.detail.result}}
+                    handleSelect={(result) => {
+                        grupo.integrantes[index] = result;
+                    }}
                 />
                 <div>
                     <label for="student-name-{index}">Nombre:</label>
@@ -97,8 +100,8 @@
                         id="student-nota-{index}"
                         type="number"
                         bind:value={grupo.integrantes[index].nota}
-                        min=1
-                        max=10
+                        min="1"
+                        max="10"
                         required
                     />
                 </div>
@@ -130,7 +133,7 @@
         margin-top: 1em;
         width: 100px;
     }
-    .grupo-form{
+    .grupo-form {
         display: flex;
         flex-direction: column;
         justify-content: center;

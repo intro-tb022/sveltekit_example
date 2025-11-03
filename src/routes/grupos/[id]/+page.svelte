@@ -1,41 +1,65 @@
 <script>
-    import Typeahead from '$lib/components/Typeahead.svelte';
+    import Typeahead from "$lib/components/Typeahead.svelte";
 
-    import '../../table-styles.css';
-    import '../../button-styles.css';
+    import { PUBLIC_API_URL } from "$env/static/public";
+
+    import "../../button-styles.css";
+    import "../../table-styles.css";
 
     let { data, form } = $props();
 
-    let padron = $state(0)
+    let padron = $state(0);
 
     function handleSelect(event) {
         padron = event.detail.result.padron;
     }
 </script>
- 
+
 <h1>{data.grupo.nombre}</h1>
 <h2>Integrantes</h2>
 <table>
     <tbody>
         {#each data.grupo.integrantes as integrante}
             <tr>
-                <td width=20%>
+                <td width="20%">
                     {integrante.alumno.padron}
                 </td>
-                <td width=40%>
-                    <span>{integrante.alumno.nombre} {integrante.alumno.apellido}</span>
+                <td width="40%">
+                    <span
+                        >{integrante.alumno.nombre}
+                        {integrante.alumno.apellido}</span
+                    >
                 </td>
-                <td width=20%>
+                <td width="20%">
                     <form method="POST" action="?/poner_nota">
-                        <input type="hidden" name="padron" value={integrante.alumno.padron} />
+                        <input
+                            type="hidden"
+                            name="padron"
+                            value={integrante.alumno.padron}
+                        />
                         <input type="hidden" name="id" value={data.grupo.id} />
-                        <input type="number" name="nota" value={integrante.nota} min="1" max="10" required />
-                        <button type="submit"> {integrante.nota ? "Cambiar Nota" : "Poner Nota"}</button>
+                        <input
+                            type="number"
+                            name="nota"
+                            value={integrante.nota}
+                            min="1"
+                            max="10"
+                            required
+                        />
+                        <button type="submit">
+                            {integrante.nota
+                                ? "Cambiar Nota"
+                                : "Poner Nota"}</button
+                        >
                     </form>
                 </td>
-                <td width=20%>
+                <td width="20%">
                     <form method="POST" action="?/desinscribir">
-                        <input type="hidden" name="padron" value={integrante.alumno.padron} />
+                        <input
+                            type="hidden"
+                            name="padron"
+                            value={integrante.alumno.padron}
+                        />
                         <input type="hidden" name="id" value={data.grupo.id} />
                         <button>Desinscribir</button>
                     </form>
@@ -52,9 +76,16 @@
         <Typeahead
             endpoint={`${PUBLIC_API_URL}/alumnos/`}
             placeholder="Elegir alumno..."
-            on:select={handleSelect}
+            {handleSelect}
         />
-        <input hidden=true type="number" id="padron" name="padron" min="1" bind:value={padron} />
+        <input
+            hidden="true"
+            type="number"
+            id="padron"
+            name="padron"
+            min="1"
+            bind:value={padron}
+        />
         <button type="submit">Inscribir</button>
     </form>
 

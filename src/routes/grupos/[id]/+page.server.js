@@ -3,25 +3,25 @@ import { error } from '@sveltejs/kit';
 import { PUBLIC_API_URL } from '$env/static/public';
 
 export async function load({ params }) {
-   let url = new URL(`${PUBLIC_API_URL}/${params.id}`)
-   const response = await fetch(url);
-   if (!response.ok) {
-       error(response.status, "No se pudo cargar el grupo")
-   }
+    let url = new URL(`${PUBLIC_API_URL}/grupos/${params.id}`)
+    const response = await fetch(url);
+    if (!response.ok) {
+        error(response.status, "No se pudo cargar el grupo")
+    }
 
-   let grupo = await response.json();
+    let grupo = await response.json();
 
-   return {
-       grupo
-   };
+    return {
+        grupo
+    };
 }
 
 export const actions = {
     desinscribir: async ({ request }) => {
         const data = await request.formData();
- 
+
         let url = new URL(`${PUBLIC_API_URL}/grupos/${data.get('id')}/integrantes/${data.get('padron')}`)
- 
+
         const response = await fetch(url, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' }
@@ -32,11 +32,11 @@ export const actions = {
     },
     poner_nota: async ({ request }) => {
         const data = await request.formData();
- 
+
         let url = new URL(`${PUBLIC_API_URL}/integrantes/${data.get('id')}/${data.get('padron')}/poner_nota`)
         let params = { nota: data.get('nota') }
         url.search = new URLSearchParams(params).toString();
- 
+
         const response = await fetch(url, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' }
@@ -47,19 +47,18 @@ export const actions = {
     },
     inscribir: async ({ request }) => {
         const data = await request.formData();
- 
+
         let url = new URL(`${PUBLIC_API_URL}/grupos/${data.get('id')}/integrantes`)
- 
+
         const response = await fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({padron: data.get("padron")})
+            body: JSON.stringify({ padron: data.get("padron") })
         });
         if (!response.ok) {
             error(response.status, response);
         }
 
-        return { success: true, message: "Inscripción exitosa"}
+        return { success: true, message: "Inscripción exitosa" }
     },
- }
- 
+}
