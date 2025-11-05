@@ -8,14 +8,14 @@ export async function load() {
     if (!response.ok) {
         error(`Response status: ${response.status}`);
     }
- 
+
     let grupos = await response.json();
- 
+
     return {
         grupos: grupos
     };
- }
- 
+}
+
 
 export const actions = {
     create: async ({ request }) => {

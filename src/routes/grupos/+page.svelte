@@ -1,5 +1,6 @@
 <script>
     import { PUBLIC_API_URL } from "$env/static/public";
+    import { goto } from "$app/navigation";
 
     import Typeahead from "$lib/components/Typeahead.svelte";
 
@@ -24,6 +25,18 @@
 
 <h1>Ésta es la página de grupos</h1>
 
+<Typeahead
+    endpoint={`${PUBLIC_API_URL}/grupos/`}
+    placeholder="Buscar grupo por nombre..."
+    searchProperty="nombre"
+    handleSelect={(result) => {
+        goto(URL(`/grupos/${result.id}`));
+    }}
+>
+    {#snippet row(grupo)}
+        {grupo.nombre}
+    {/snippet}
+</Typeahead>
 <table>
     <thead>
         <tr>
@@ -60,10 +73,15 @@
                 <Typeahead
                     endpoint={`${PUBLIC_API_URL}/alumnos/`}
                     placeholder="Elegir alumno..."
+                    searchProperty="nombre"
                     handleSelect={(result) => {
                         grupo.integrantes[index] = result;
                     }}
-                />
+                >
+                    {#snippet row(alumno)}
+                        ({alumno.padron}) {alumno.nombre}, {alumno.apellido}
+                    {/snippet}
+                </Typeahead>
                 <div>
                     <label for="student-name-{index}">Nombre:</label>
                     <input

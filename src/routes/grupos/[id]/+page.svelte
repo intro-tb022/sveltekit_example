@@ -76,8 +76,13 @@
         <Typeahead
             endpoint={`${PUBLIC_API_URL}/alumnos/`}
             placeholder="Elegir alumno..."
+            searchProperty="nombre"
             {handleSelect}
-        />
+        >
+            {#snippet row(alumno)}
+                {alumno.nombre}, {alumno.apellido}
+            {/snippet}
+        </Typeahead>
         <input
             hidden="true"
             type="number"
