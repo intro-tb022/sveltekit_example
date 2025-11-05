@@ -1,12 +1,12 @@
 <script>
-    import { createEventDispatcher, onDestroy } from "svelte";
-
-    const dispatch = createEventDispatcher();
+    import { onDestroy } from "svelte";
 
     let {
         data,
         placeholder,
         endpoint,
+        searchProperty,
+        row,
         handleSelect,
         minQueryLength = 2,
         debounceTime = 300,
@@ -29,8 +29,9 @@
 
     async function fetchResults() {
         let url = new URL(endpoint);
-        let params = { nombre: query };
-        url.search = new URLSearchParams(params).toString();
+        let searchParams = new URLSearchParams();
+        searchParams.set(searchProperty, query);
+        url.search = searchParams.toString();
 
         const response = await fetch(url, {
             method: "GET",
@@ -77,7 +78,7 @@
                     tabindex="0"
                     onmousedown={() => selectResult(result)}
                 >
-                    {result.nombre}, {result.apellido}
+                    {@render row(result)}
                 </div>
             {/each}
         </div>
