@@ -1,16 +1,22 @@
 <script>
-    import '../table-styles.css';
-    import Pagination from '$lib/components/Pagination.svelte';
+    import Pagination from "$lib/components/Pagination.svelte";
+    import Search from "$lib/components/Search.svelte";
+
+    import "../button-styles.css";
+    import "../table-styles.css";
 
     let { data } = $props();
 </script>
 
 <h1>Ésta es la página de alumnos</h1>
-<Pagination 
-    currentPage={data.currentPage}
-    pageSize={data.pageSize}
-    hasMore={data.hasMore}
-/>
+<div class="row">
+    <Search query={data.nombre} placeholder="Buscar por nombre..." />
+    <Pagination
+        currentPage={data.page}
+        pageSize={data.pageSize}
+        lastPage={data.lastPage}
+    />
+</div>
 <table>
     <thead>
         <tr>
@@ -31,3 +37,12 @@
         {/each}
     </tbody>
 </table>
+
+<style>
+    .row {
+        display: flex;
+        justify-content: space-between;
+        height: 50px;
+        margin-bottom: 30px;
+    }
+</style>

@@ -2,11 +2,12 @@
     import { goto } from "$app/navigation";
     import { page } from "$app/stores";
 
-    let { currentPage = 0, pageSize = 20, hasMore = true } = $props();
+    let { currentPage = 0, pageSize = 20, lastPage = false } = $props();
 
     function goToPage(newPage) {
         const url = new URL($page.url);
         url.searchParams.set("page", newPage.toString());
+        url.searchParams.set("pageSize", pageSize.toString());
         goto(url.toString());
     }
 
@@ -28,7 +29,7 @@
         Página {currentPage + 1}
     </span>
 
-    {#if hasMore}
+    {#if !lastPage}
         <button onclick={nextPage} class="pagination-btn"> Siguiente → </button>
     {/if}
 </div>

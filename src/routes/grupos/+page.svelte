@@ -73,7 +73,7 @@
                 <Typeahead
                     endpoint={`${PUBLIC_API_URL}/alumnos/`}
                     placeholder="Elegir alumno..."
-                    searchProperty="nombre"
+                    searchProperty="apellido"
                     handleSelect={(result) => {
                         grupo.integrantes[index] = result;
                     }}
