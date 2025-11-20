@@ -1,4 +1,5 @@
 <script>
+    import { error } from "@sveltejs/kit";
     import { onDestroy } from "svelte";
 
     let {
